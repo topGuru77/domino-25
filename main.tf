@@ -96,23 +96,23 @@ resource "aws_route_table" "pub-RT3"{
   }
 }
 
-resource "aws_route_table" "priv-RT1"{
-  vpc_id = aws_vpc.ASG_network.id
+# resource "aws_route_table" "priv-RT1"{
+#   vpc_id = aws_vpc.ASG_network.id
 
-  route {
-    cidr_block = var.priv-RT1_cidr_block
-    gateway_id = aws_nat_gateway.ASG_ngw.id
-  }
-}
+#   route {
+#     cidr_block = var.priv-RT1_cidr_block
+#     gateway_id = aws_nat_gateway.ASG_ngw.id
+#   }
+# }
 
-resource "aws_route_table" "priv-RT2"{
-  vpc_id = aws_vpc.ASG_network.id
+# resource "aws_route_table" "priv-RT2"{
+#   vpc_id = aws_vpc.ASG_network.id
 
-  route {
-    cidr_block = var.priv-RT2_cidr_block
-    gateway_id = aws_nat_gateway.ASG_ngw.id
-  }
-}
+#   route {
+#     cidr_block = var.priv-RT2_cidr_block
+#     gateway_id = aws_nat_gateway.ASG_ngw.id
+#   }
+# }
 
 resource "aws_nat_gateway" "ASG_ngw" {
   allocation_id = aws_eip.eip.id
@@ -145,10 +145,10 @@ resource "aws_route_table_association" "rt3" {
   route_table_id = aws_route_table.pub-RT3.id
 }
 
-resource "aws_route_table_association" "rt5" {
-  subnet_id      = aws_subnet.priv_subnet2.id
-  route_table_id = aws_route_table.priv-RT2.id
-}
+# resource "aws_route_table_association" "rt5" {
+#   subnet_id      = aws_subnet.priv_subnet2.id
+#   route_table_id = aws_route_table.priv-RT2.id
+# }
 
 resource "aws_security_group" "alb_sg" {
   name        = "alb_sg"

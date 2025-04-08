@@ -24,18 +24,19 @@ pipeline {
 
         stage('Auto Git Commit & Push') {
             steps {
-               withCredentials([usernamePassword(credentialsId: 'GITHUB_PAT', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
-    sh '''
-        git config --global user.email "kwamenadollar17@yahoo.com"
-        git config --global user.name "topGuru77"
+               withCredentials([usernamePassword(credentialsId: 'GITHUB_PAT_CREDS', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
+  sh '''
+    git config --global user.email "kwamenadollar17@yahoo.com"
+    git config --global user.name "topGuru77"
 
-        git remote set-url origin https://$GIT_USER:$GIT_TOKEN@github.com/topGuru77/domino-25.git
+    git remote set-url origin https://$GIT_USER:$GIT_TOKEN@github.com/topGuru77/domino-25.git
 
-        git add .
-        git commit -m "Auto commit after Terraform apply" || echo "Nothing to commit"
-        git push origin main
-    '''
+    git add .
+    git commit -m "Auto commit after Terraform apply" || echo "Nothing to commit"
+    git push origin main
+  '''
 }
+
 
 
             }

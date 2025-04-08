@@ -5,7 +5,7 @@ pipeline {
         GIT_REPO = "https://github.com/topGuru77/domino-25.git"
         BRANCH = "main"
     }
-
+       //   the github credentials have been updated to use PAT token instead of password
     stages {
         stage('SCM checkout Code with jenkins server') {
             steps {

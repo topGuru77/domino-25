@@ -15,6 +15,7 @@ resource "aws_launch_template" "Web_end2end_lt" {
     yum update -y
     yum install -y httpd
     systemctl start httpd
+    systemctl restart httpd
     systemctl enable httpd
     echo "<h1>Welcome to ASG end2end domino instances</h1>" > /var/www/html/index.html
   EOF

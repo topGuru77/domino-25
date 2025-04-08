@@ -20,4 +20,9 @@ resource "aws_launch_template" "Web_end2end_lt" {
     echo "<h1>Welcome to ASG end2end domino instances</h1>" > /var/www/html/index.html
   EOF
   )
+
+  tags = {
+    Environment = "dev"
+    Name        = "Web_end2end_lt"
+  }
 }

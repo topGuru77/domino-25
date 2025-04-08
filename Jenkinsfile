@@ -5,46 +5,34 @@ pipeline {
         GIT_REPO = "https://github.com/topGuru77/domino-25.git"
         BRANCH = "main"
     }
-       //   the github credentials have been updated to use PAT token instead of password
+
     stages {
-        stage('SCM checkout Code with jenkins server') {
-            steps {
-               withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'TOKEN')]) {
-                    sh 'git clone https://$TOKEN@github.com/topGuru77/domino-25.git'
-                } 
-
-            }
-        }
-
         stage('Terraform Init & Plan') {
             steps {
-                script {
-                    sh '''
+                sh '''
                     terraform init
                     terraform plan -out=tfplan
-                    '''
-                }
+                '''
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                script {
-                    sh 'terraform apply -auto-approve tfplan'
-                }
+                sh 'terraform apply -auto-approve tfplan'
             }
         }
 
         stage('Auto Git Commit & Push') {
             steps {
-                script {
+                withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'TOKEN')]) {
                     sh '''
-                    git config --global user.email "kwamenadollar17@yahoo.com"
-                    git config --global user.name "topGuru77"
+                        git config --global user.email "kwamenadollar17@yahoo.com"
+                        git config --global user.name "topGuru77"
+                        git remote set-url origin https://$TOKEN@github.com/topGuru77/domino-25.git
 
-                    git add .
-                    git commit -m "Auto commit after Terraform apply"
-                    git push origin $BRANCH
+                        git add .
+                        git commit -m "Auto commit after Terraform apply" || echo "Nothing to commit"
+                        git push origin main
                     '''
                 }
             }

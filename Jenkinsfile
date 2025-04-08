@@ -9,10 +9,10 @@ pipeline {
     stages {
         stage('SCM checkout Code with jenkins server') {
             steps {
-                script {
-                    // Clone the repository
-                    checkout scm
-                }
+               withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'TOKEN')]) {
+                    sh 'git clone https://$TOKEN@github.com/topGuru77/domino-25.git'
+                } 
+
             }
         }
 

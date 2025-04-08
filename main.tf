@@ -78,14 +78,14 @@ resource "aws_route_table" "pub-RT1"{
   }
 }
 
-resource "aws_route_table" "pub-RT2"{
-  vpc_id = aws_vpc.ASG_network.id
+# resource "aws_route_table" "pub-RT2"{
+#   vpc_id = aws_vpc.ASG_network.id
 
-  route {
-    cidr_block = var.pub-RT2_cidr_block
-    gateway_id = aws_internet_gateway.ASG_igw.id
-  }
-}
+#   route {
+#     cidr_block = var.pub-RT2_cidr_block
+#     gateway_id = aws_internet_gateway.ASG_igw.id
+#   }
+# }
 
 resource "aws_route_table" "pub-RT3"{
   vpc_id = aws_vpc.ASG_network.id
@@ -135,10 +135,10 @@ resource "aws_route_table_association" "rt1" {
   route_table_id = aws_route_table.pub-RT1.id
 }
 
-resource "aws_route_table_association" "rt2" {
-  subnet_id      = aws_subnet.pub_subnet2.id
-  route_table_id = aws_route_table.pub-RT2.id
-}
+# resource "aws_route_table_association" "rt2" {
+#   subnet_id      = aws_subnet.pub_subnet2.id
+#   route_table_id = aws_route_table.pub-RT2.id
+# }
 
 resource "aws_route_table_association" "rt3" {
   subnet_id      = aws_subnet.pub_subnet3.id
